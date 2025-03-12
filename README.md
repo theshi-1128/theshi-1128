@@ -9,26 +9,15 @@
 ---
 
 ### 🚀 About Me:
-- 🔭 I’m currently working on **LLM Security & Adversarial Attacks**
-- 🌱 I’m currently learning **System Security & English**
-- 💬 Ask me about **Science Teaching & AI Security**
-- 📫 How to reach me: [Your Email or Social Media]
-- ⚡ Fun fact: I love **exploring new ideas & solving problems!**
-
+- 🔭 I’m currently working on **LLM Security**
 ---
 
-### 🛠️ Tech Stack:
-<p align="center">
-  <img src="https://skillicons.dev/icons?i=python,linux,git,docker,nginx,md" />
-</p>
-
----
 
 ### 📊 GitHub Stats:
 <p align="center">
-  <img src="https://github-readme-stats.vercel.app/api?username=theshi-1128&show_icons=true&theme=tokyonight" />
+  <img src="https://github-readme-stats.vercel.app/api?username=theshi-1128&show_icons=true" />
   <br>
-  <img src="https://github-readme-streak-stats.herokuapp.com/?user=theshi-1128&theme=tokyonight" />
+  <img src="https://github-readme-streak-stats.herokuapp.com/?user=theshi-1128" />
 </p>
 
 ---
