@@ -10,15 +10,6 @@
 - 🌟 **My Repositories' Stars:** <!--START_TOTAL_STARS-->0<!--END_TOTAL_STARS-->
 
 
-### 📊 GitHub Stats:
-
-<p align="center">
-  <img src="https://github-readme-stats.vercel.app/api?username=theshi-1128&show_icons=true" />
-  <br>
-  <img src="https://github-readme-streak-stats.herokuapp.com/?user=theshi-1128" />
-</p>
-
----
 
 ### 🔥 Most Used Languages:
 <p align="center">
