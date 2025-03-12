@@ -7,7 +7,7 @@
 ---
 
 ### ⭐ Total Stars:
-- 🌟 **My Repositories' Stars:** <!--START_TOTAL_STARS-->0<!--END_TOTAL_STARS-->
+- 🌟 **My Repositories' Stars:** <!--START_TOTAL_STARS-->73<!--END_TOTAL_STARS-->
 
 
 
