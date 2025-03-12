@@ -6,7 +6,7 @@ import re
 USERNAME = "theshi-1128"
 
 # GitHub Token（需要有 "public_repo" 权限），可以存储在 GitHub Secrets 中
-TOKEN = os.getenv("theshi")
+TOKEN = os.getenv("THESHI")
 
 # 获取用户的所有仓库的 Star 数量
 def get_user_stars():
