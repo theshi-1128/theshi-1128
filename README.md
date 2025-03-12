@@ -13,7 +13,7 @@
 
 ### 🔥 Most Used Languages:
 <p align="center">
-  <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=theshi-1128&layout=compact" />
+  <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=theshi-1128/>
 </p>
 
 ---
