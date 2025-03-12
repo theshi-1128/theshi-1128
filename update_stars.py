@@ -1,10 +1,11 @@
 import requests
 import os
+import re
 
 # 你的 GitHub 用户名
 USERNAME = "theshi-1128"
 
-# 你的 GitHub Token（需要有 "public_repo" 权限），可以存储在 GitHub Secrets 中
+# GitHub Token（需要有 "public_repo" 权限），可以存储在 GitHub Secrets 中
 TOKEN = os.getenv("GITHUB_TOKEN")
 
 # 获取用户的所有仓库的 Star 数量
@@ -32,17 +33,16 @@ def update_readme():
     user_stars = get_user_stars()
     contributed_stars = get_contributed_stars()
 
-    readme_content = f"""# Hi, I'm {USERNAME} 👋
+    with open("README.md", "r", encoding="utf-8") as f:
+        content = f.read()
 
-## ⭐ Star Statistics
+    content = re.sub(r"<!--START_MY_STARS-->.*?<!--END_MY_STARS-->", 
+                     f"<!--START_MY_STARS-->{user_stars}<!--END_MY_STARS-->", content)
+    
+    content = re.sub(r"<!--START_CONTRIBUTED_STARS-->.*?<!--END_CONTRIBUTED_STARS-->", 
+                     f"<!--START_CONTRIBUTED_STARS-->{contributed_stars}<!--END_CONTRIBUTED_STARS-->", content)
 
-- 🌟 **My Repositories' Stars:** {user_stars}
-- 🌟 **Stars from Repositories I Contributed To:** {contributed_stars}
-
-_Last updated: Automatically via GitHub Actions_
-    """
-
-    with open("README.md", "w") as f:
-        f.write(readme_content)
+    with open("README.md", "w", encoding="utf-8") as f:
+        f.write(content)
 
 update_readme()
