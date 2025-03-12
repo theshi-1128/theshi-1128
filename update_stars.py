@@ -32,15 +32,13 @@ def get_contributed_stars():
 def update_readme():
     user_stars = get_user_stars()
     contributed_stars = get_contributed_stars()
+    total_stars = user_stars + contributed_stars
 
     with open("README.md", "r", encoding="utf-8") as f:
         content = f.read()
 
-    content = re.sub(r"<!--START_MY_STARS-->.*?<!--END_MY_STARS-->", 
-                     f"<!--START_MY_STARS-->{user_stars}<!--END_MY_STARS-->", content)
-    
-    content = re.sub(r"<!--START_CONTRIBUTED_STARS-->.*?<!--END_CONTRIBUTED_STARS-->", 
-                     f"<!--START_CONTRIBUTED_STARS-->{contributed_stars}<!--END_CONTRIBUTED_STARS-->", content)
+    content = re.sub(r"<!--START_TOTAL_STARS-->.*?<!--END_TOTAL_STARS-->", 
+                     f"<!--START_TOTAL_STARS-->{total_stars}<!--END_TOTAL_STARS-->", content)
 
     with open("README.md", "w", encoding="utf-8") as f:
         f.write(content)
