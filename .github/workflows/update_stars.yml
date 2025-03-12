@@ -22,7 +22,7 @@ jobs:
 
       - name: Run Star Update Script
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.theshi }}
         run: python update_stars.py
 
       - name: Commit and Push Changes
