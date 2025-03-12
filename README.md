@@ -6,7 +6,7 @@
 - 🔭 I’m currently working on **LLM Security**
 ---
 
-### ⭐ Total Stars:
+### ⭐ Github Status:
 - 🌟 **My Repositories' Stars:** <!--START_TOTAL_STARS-->73<!--END_TOTAL_STARS-->
 
 
