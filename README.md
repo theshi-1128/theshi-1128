@@ -3,7 +3,7 @@
 <p align="center"> 😄 Nice to meet you! </p>
 
 ### 🚀 About Me:
-- 🔭 I’m currently working on **LLM Security**
+> 🔭 I’m currently working on **LLM Security**
 ---
 
 ### ⭐ Github Status:
