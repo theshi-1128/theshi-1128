@@ -20,7 +20,7 @@ jobs:
       - name: Install Dependencies
         run: pip install requests
 
-      - name: Run Star Update Script
+      - name: Run Star+Fork Update Script
         env:
           GITHUB_TOKEN: ${{ secrets.THESHI }}
         run: python update_stars.py
@@ -30,5 +30,5 @@ jobs:
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git add README.md
-          git commit -m "Update star count" || exit 0
+          git commit -m "Update total stars + forks" || exit 0
           git push
