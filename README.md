@@ -7,7 +7,7 @@
 ---
 
 ### ⭐ Github Status:
-> ✨ **My Repositories' Stars:** <!--START_TOTAL_STARS-->121<!--END_TOTAL_STARS--> ⭐
+> 🌟 **Total Stars + Forks:** <!--START_TOTAL_SCORE-->0<!--END_TOTAL_SCORE-->
 ---
 
 ✨ *Thanks for visiting! Have a great day!* 😊
