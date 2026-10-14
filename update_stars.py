@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # update_stars.py
 # 功能（增强版）：
-#  1) 使用 GITHUB_TOKEN 获取当前用户所有 repo（type=owner），计算 total = sum(stars)+sum(forks)
+#  1) 使用 GITHUB_TOKEN 获取当前用户所有公开 repo，以及 trustlab-zjsu 组织的公开 repo（去重），计算 total = sum(stars)+sum(forks)
 #  2) 尝试多种方式把 total 写回 README.md：
 #     - 优先替换 <!--START_TOTAL_SCORE-->...<!--END_TOTAL_SCORE--> 占位符
 #     - 若无占位符，尝试替换常见的 "Total Stars & Forks:" / "Total Stars + Forks:" / "Total Stars:" 行中数字
@@ -49,6 +49,26 @@ def fetch_all_repos(user: str) -> List[Dict]:
         data = resp.json()
         if not isinstance(data, list):
             raise RuntimeError(f"Unexpected response fetching repos: {data}")
+        repos.extend(data)
+        if len(data) < per_page:
+            break
+        page += 1
+    return repos
+
+
+def fetch_all_org_repos(org: str) -> List[Dict]:
+    """Return all public repositories owned by the organization."""
+    repos = []
+    page = 1
+    per_page = 100
+    while True:
+        url = f"https://api.github.com/orgs/{org}/repos"
+        params = {"per_page": per_page, "page": page, "type": "public", "sort": "full_name"}
+        resp = requests.get(url, headers=HEADERS, params=params, timeout=30)
+        resp.raise_for_status()
+        data = resp.json()
+        if not isinstance(data, list):
+            raise RuntimeError(f"Unexpected response fetching organization repos: {data}")
         repos.extend(data)
         if len(data) < per_page:
             break
@@ -159,10 +179,13 @@ def main():
         user = get_authenticated_user()
         print(f"Authenticated as: {user}")
 
-        repos = fetch_all_repos(user)
-        print(f"Fetched {len(repos)} repositories (type=owner).")
+        personal_repos = fetch_all_repos(user)
+        org_repos = fetch_all_org_repos("trustlab-zjsu")
+        print(f"Fetched {len(personal_repos)} personal and {len(org_repos)} TrustLab repositories.")
 
-        total, stars, forks = calculate_total_score(repos)
+        # Count every owned repository at most once.
+        repos_by_id = {r["id"]: r for r in personal_repos + org_repos}
+        total, stars, forks = calculate_total_score(list(repos_by_id.values()))
         print(f"stars: {stars}, forks: {forks}, total: {total}")
 
         update_readme_robust(total)
