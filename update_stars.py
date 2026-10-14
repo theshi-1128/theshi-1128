@@ -27,6 +27,13 @@ HEADERS = {
     "User-Agent": "update-stars-script"
 }
 
+# Public organization endpoints must not receive the personal fine-grained PAT.
+# The organization enforces a maximum token lifetime of 366 days.
+PUBLIC_HEADERS = {
+    "Accept": "application/vnd.github+json",
+    "User-Agent": "update-stars-script"
+}
+
 
 def get_authenticated_user() -> str:
     resp = requests.get("https://api.github.com/user", headers=HEADERS, timeout=30)
@@ -64,7 +71,7 @@ def fetch_all_org_repos(org: str) -> List[Dict]:
     while True:
         url = f"https://api.github.com/orgs/{org}/repos"
         params = {"per_page": per_page, "page": page, "type": "public", "sort": "full_name"}
-        resp = requests.get(url, headers=HEADERS, params=params, timeout=30)
+        resp = requests.get(url, headers=PUBLIC_HEADERS, params=params, timeout=30)
         resp.raise_for_status()
         data = resp.json()
         if not isinstance(data, list):
