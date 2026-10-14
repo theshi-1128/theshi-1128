@@ -5,12 +5,19 @@ on:
     - cron: "0 0 * * *"  # 每天 UTC 时间 00:00 运行
   workflow_dispatch:  # 允许手动触发
 
+concurrency:
+  group: update-star-count-master
+  cancel-in-progress: false
+
 jobs:
   update-readme:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v3
+        with:
+          ref: master
+          fetch-depth: 0
 
       - name: Setup Python
         uses: actions/setup-python@v3
@@ -20,15 +27,37 @@ jobs:
       - name: Install Dependencies
         run: pip install requests
 
-      - name: Run Star+Fork Update Script
+      - name: Update, Commit and Push Changes
         env:
           GITHUB_TOKEN: ${{ secrets.THESHI }}
-        run: python update_stars.py
-
-      - name: Commit and Push Changes
         run: |
-          git config --global user.name "github-actions[bot]"
-          git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          git add README.md
-          git commit -m "Update total stars + forks" || exit 0
-          git push
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+          for attempt in 1 2 3; do
+            # Refresh this disposable runner checkout before regenerating README.
+            # On retry, discard only the previous unpushed generated commit.
+            git fetch origin master
+            git reset --hard origin/master
+            python update_stars.py
+            git add README.md
+
+            if git diff --cached --quiet; then
+              echo "Statistics are already up to date."
+              exit 0
+            fi
+
+            git commit -m "Update total stars + forks"
+            if git push origin HEAD:master; then
+              exit 0
+            fi
+
+            echo "Push failed on attempt $attempt; regenerating from latest master."
+            if [ "$attempt" -lt 3 ]; then
+              sleep 2
+            fi
+          done
+
+          echo "Unable to push statistics after 3 attempts." >&2
+          exit 1
